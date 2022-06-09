@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class CardOrder {
     @Test
     void shouldSubmitRequest() {
-        open("http://localhost:7777/");
+        open("http://0.0.0.0:7777/");
         $("[data-test-id=name] input").setValue("Изотова Юлия");
         $("[data-test-id=phone] input").setValue("+79602309950");
         $("[data-test-id=agreement]").click();
