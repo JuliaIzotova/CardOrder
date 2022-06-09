@@ -1,5 +1,6 @@
 package ru.netology;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.exactText;
@@ -8,9 +9,14 @@ import static com.codeborne.selenide.Selenide.open;
 
 
 public class CardOrder {
+    @BeforeEach
+    public void openForm() {
+        open("http://localhost:9999/");
+    }
+
     @Test
     void shouldSubmitRequest() {
-        open("http://localhost:9999/");
+
         $("[data-test-id=name] input").setValue("Изотова Юлия");
         $("[data-test-id=phone] input").setValue("+79602309950");
         $("[data-test-id=agreement]").click();
@@ -19,8 +25,9 @@ public class CardOrder {
     }
 
     @Test
-    void checkWhenInvalidName() {
-        open("http://localhost:9999/");
+    void shouldCheckName() {
+
+
         $("[data-test-id=name] input").setValue("Izotova Yulia");
         $("[data-test-id=phone] input").setValue("+79602309950");
         $("[data-test-id=agreement]").click();
@@ -29,8 +36,8 @@ public class CardOrder {
     }
 
     @Test
-    void checkWhenInvalidTel() {
-        open("http://localhost:9999/");
+    void shouldWhenInvalidTel() {
+
         $("[data-test-id=name] input").setValue("Изотова Юлия");
         $("[data-test-id=phone] input").setValue("+796023099");
         $("[data-test-id=agreement]").click();
@@ -39,15 +46,44 @@ public class CardOrder {
     }
 
     @Test
-    void checkWhenFieldsEmpty() {
-        open("http://localhost:9999/");
+    void shouldIfFieldsEmpty() {
+
         $("[data-test-id=name] input").setValue("");
         $("[data-test-id=phone] input").setValue("");
         $("[data-test-id=agreement]").click();
         $("[type=button]").click();
         $("[data-test-id=name].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
+
+    @Test
+    void shouldCheckIfNameEmpty() {
+
+        $("[data-test-id=name] input").setValue("");
+        $("[data-test-id=phone] input").setValue("+79602309950");
+        $("[data-test-id=agreement]").click();
+        $("[type=button]").click();
+        $("[data-test-id=name].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+    }
+
+    @Test
+    void shouldCheckIfPhoneEmpty() {
+        $("[data-test-id=name] input").setValue("Изотова Юлия");
+        $("[data-test-id=phone] input").setValue("");
+        $("[data-test-id=agreement]").click();
+        $("[type=button]").click();
+        $("[data-test-id=phone].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+    }
+
+    @Test
+    void shouldCheckIfMissClickAgreement() {
+        $("[data-test-id=name] input").setValue("Изотова Юлия");
+        $("[data-test-id=phone] input").setValue("+79602309950");
+        $("[type=button]").click();
+        $("[data-test-id=agreement].input_invalid .checkbox__text").shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
+    }
+
 }
+
 
 
 
