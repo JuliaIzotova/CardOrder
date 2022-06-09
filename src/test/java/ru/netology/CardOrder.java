@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class CardOrder {
     @Test
     void shouldSubmitRequest() {
-        open("http://localhost:9999");
+        open("http://localhost:9999/");
         $("[data-test-id=name] input").setValue("Изотова Юлия");
         $("[data-test-id=phone] input").setValue("+79602309950");
         $("[data-test-id=agreement]").click();
@@ -20,7 +20,7 @@ public class CardOrder {
 
     @Test
     void checkWhenInvalidName() {
-        open("http://0.0.0.0:7777/");
+        open("http://localhost:9999/");
         $("[data-test-id=name] input").setValue("Izotova Yulia");
         $("[data-test-id=phone] input").setValue("+79602309950");
         $("[data-test-id=agreement]").click();
@@ -30,7 +30,7 @@ public class CardOrder {
 
     @Test
     void checkWhenInvalidTel() {
-        open("http://0.0.0.0:7777/");
+        open("http://localhost:9999/");
         $("[data-test-id=name] input").setValue("Изотова Юлия");
         $("[data-test-id=phone] input").setValue("+796023099");
         $("[data-test-id=agreement]").click();
@@ -40,7 +40,7 @@ public class CardOrder {
 
     @Test
     void checkWhenFieldsEmpty() {
-        open("http://0.0.0.0:7777/");
+        open("http://localhost:9999/");
         $("[data-test-id=name] input").setValue("");
         $("[data-test-id=phone] input").setValue("");
         $("[data-test-id=agreement]").click();
